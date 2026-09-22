@@ -1,80 +1,389 @@
+```html
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>My First Page!!</title>
 
     <style>
-        body {
-            background-color: rgb(212, 186, 198);
-            margin: 0;
-            padding: 40px;
+
+      
+
+        * {
+            box-sizing: border-box;
         }
+
+        body {
+            margin: 0;
+            padding: 40px 20px;
+
+            min-height: 100vh;
+
+            background: linear-gradient(
+                135deg,
+                #ead5df,
+                #d4bac6,
+                #c7a7bc
+            );
+
+            font-family: 'Gill Sans', 'Gill Sans MT',
+                         Calibri, sans-serif;
+
+            color: #460c38;
+        }
+
+
+
+
+        .container {
+            width: 100%;
+            max-width: 850px;
+
+            margin: 0 auto;
+            padding: 45px;
+
+            background-color: rgba(255, 255, 255, 0.90);
+
+            border-radius: 30px;
+
+            box-shadow:
+                0 15px 40px rgba(70, 12, 56, 0.20);
+
+            text-align: center;
+        }
+
+
+
 
         h1 {
+            margin: 0;
+
             color: rgb(167, 13, 129);
-            text-align: center;
-            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, sans-serif;
+
+            font-size: 42px;
+
+            letter-spacing: 2px;
         }
+
+
+        
+
+        .linea {
+            width: 70px;
+            height: 5px;
+
+            margin: 18px auto 25px;
+
+            background-color: rgb(167, 13, 129);
+
+            border-radius: 10px;
+        }
+
+
+       
 
         h2 {
+            margin: 0 0 10px;
+
             color: rgb(70, 12, 56);
-            text-align: center;
-            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, sans-serif;
+
+            font-size: 27px;
         }
+
+
+        /* =========================
+           DESCRIPCIÓN
+        ========================= */
 
         p {
-            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-            font-size: 15px;
-            text-align: center;
+            margin-bottom: 25px;
+
+            font-family:
+                'Franklin Gothic Medium',
+                'Arial Narrow',
+                Arial,
+                sans-serif;
+
+            font-size: 17px;
+
+            color: #5d4856;
         }
 
-        image {
+
+        /* =========================
+           IMAGEN
+        ========================= */
+
+        img {
             display: block;
+
             width: 500px;
-            max-width: 50%;
+            max-width: 80%;
+
             height: auto;
-            margin: 30px auto;
-            border-radius: 15px;
+
+            margin: 25px auto 35px;
+
+            border-radius: 20px;
+
+            box-shadow:
+                0 10px 25px rgba(70, 12, 56, 0.25);
+
+            transition:
+                transform 0.3s ease,
+                box-shadow 0.3s ease;
         }
+
+
+        img:hover {
+            transform: scale(1.03);
+
+            box-shadow:
+                0 15px 30px rgba(70, 12, 56, 0.35);
+        }
+
+
+        ol {
+            list-style: none;
+
+            padding: 0;
+
+            margin: 0 auto;
+
+            max-width: 600px;
+
+            counter-reset: menu;
+        }
+
+
+        li {
+            counter-increment: menu;
+
+            margin: 12px 0;
+        }
+
+
+
+        li a {
+            display: block;
+
+            position: relative;
+
+            padding: 15px 20px;
+            padding-left: 55px;
+
+            background-color: #f7edf3;
+
+            border: 2px solid #d7b4ca;
+
+            border-radius: 15px;
+
+            color: #460c38;
+
+            text-decoration: none;
+
+            font-size: 17px;
+            font-weight: bold;
+
+            text-align: left;
+
+            transition:
+                background-color 0.3s ease,
+                color 0.3s ease,
+                transform 0.3s ease,
+                box-shadow 0.3s ease;
+        }
+
+
+
+        li a::before {
+            content: counter(menu);
+
+            position: absolute;
+
+            left: 15px;
+            top: 50%;
+
+            transform: translateY(-50%);
+
+            width: 28px;
+            height: 28px;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 50%;
+
+            background-color: rgb(167, 13, 129);
+
+            color: white;
+
+            font-size: 14px;
+        }
+
+
+        
+
+        li a::after {
+            content: "→";
+
+            position: absolute;
+
+            right: 20px;
+
+            opacity: 0;
+
+            transition: 0.3s ease;
+        }
+
+
+        /* Efecto al pasar el mouse */
+
+        li a:hover {
+            background-color: rgb(167, 13, 129);
+
+            color: white;
+
+            border-color: rgb(167, 13, 129);
+
+            transform: translateX(6px);
+
+            box-shadow:
+                0 8px 18px rgba(167, 13, 129, 0.25);
+        }
+
+
+        li a:hover::after {
+            opacity: 1;
+
+            right: 15px;
+        }
+
+
+
+        .footer {
+            margin-top: 35px;
+
+            font-size: 13px;
+
+            color: #806576;
+        }
+
+
+
+        @media (max-width: 600px) {
+
+            body {
+                padding: 20px 12px;
+            }
+
+            .container {
+                padding: 30px 18px;
+
+                border-radius: 20px;
+            }
+
+            h1 {
+                font-size: 30px;
+            }
+
+            h2 {
+                font-size: 22px;
+            }
+
+            p {
+                font-size: 15px;
+            }
+
+            img {
+                max-width: 100%;
+            }
+
+            li a {
+                font-size: 15px;
+            }
+        }
+
     </style>
 </head>
 
+
 <body>
 
-    <h1>MENÚ PRINCIPAL</h1>
+    <main class="container">
 
-    <h2>我是拉拉!</h2>
+        <h1>MENÚ PRINCIPAL</h1>
 
-    <p>Ésta es una página simple</p>
+        <div class="linea"></div>
 
-    <img class="imagen" src="Calajo.jpg" alt="Mi imagen">
-    <ol>
-        <li>
-            <a href="pagina 1/pagina1.html">Página basica</a>
+        <h2>我是拉拉! </h2>
 
-        </li>
-        <li>
-            <a href="pagina 2/pagina2-1.html">Página Golden Globes</a>
+        <p>Ésta es una página simple</p>
 
-        </li>
-        <li>
-            <a href="pagina 3/pagina3-1.html">Página Arte en Canvas</a>
 
-        </li>
-         <li>
-            <a href="pagina 4/pagina-img-animada.html">Página Imagen Animada</a>
+        <!-- IMAGEN PRINCIPAL -->
 
-        </li>
-         <li>
-            <a href="pagina 5/07-key-codes.html">Página Personajes Favoritos</a>
+        <img
+            src="Calajo.jpg"
+            alt="Mi imagen"
+        >
 
-        </li>
-        <li>
-            <a href="pagina 6 - Parcial 2/Animacion rotacion al mouse.html">Página Rotación al mouse</a>
-        </li>
-    </ol>
+
+        <!-- MENÚ DE PÁGINAS -->
+
+        <ol>
+
+            <li>
+                <a href="pagina 1/pagina1.html">
+                    Página básica
+                </a>
+            </li>
+
+            <li>
+                <a href="pagina 2/pagina2-1.html">
+                    Página Golden Globes
+                </a>
+            </li>
+
+            <li>
+                <a href="pagina 3/pagina3-1.html">
+                    Página Arte en Canvas
+                </a>
+            </li>
+
+            <li>
+                <a href="pagina 4/pagina-img-animada.html">
+                    Página Imagen Animada
+                </a>
+            </li>
+
+            <li>
+                <a href="pagina 5/07-key-codes.html">
+                    Página Personajes Favoritos
+                </a>
+            </li>
+
+            <li>
+                <a href="pagina 6 - Parcial 2/Animacion rotacion al mouse.html">
+                    Página Rotación al mouse
+                </a>
+            </li>
+
+        </ol>
+
+
+        <div class="footer">
+            Mi primera página web · HTML & CSS
+        </div>
+
+    </main>
 
 </body>
+
 </html>
+
