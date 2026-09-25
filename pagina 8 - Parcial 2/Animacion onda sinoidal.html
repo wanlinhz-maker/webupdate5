@@ -1,0 +1,364 @@
+
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Animación Senoidal</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 40px 20px;
+            min-height: 100vh;
+
+            background: linear-gradient(
+                135deg,
+                #ead5df,
+                #d4bac6,
+                #c7a7bc
+            );
+
+            font-family: 'Gill Sans',
+                         'Gill Sans MT',
+                         Calibri, sans-serif;
+
+            color: #460c38;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 40px;
+
+            background: rgba(255, 255, 255, 0.90);
+            border-radius: 30px;
+
+            box-shadow:
+                0 15px 40px rgba(70, 12, 56, 0.20);
+
+            text-align: center;
+        }
+
+
+        h1 {
+            margin: 0;
+            color: #a70d81;
+            font-size: 40px;
+            letter-spacing: 2px;
+        }
+
+        .linea {
+            width: 70px;
+            height: 5px;
+            margin: 18px auto 25px;
+
+            background: #a70d81;
+            border-radius: 10px;
+        }
+
+        h2 {
+            color: #460c38;
+            font-size: 25px;
+        }
+
+        p {
+            color: #a70d81;
+
+            font-family:
+                'Franklin Gothic Medium',
+                'Arial Narrow',
+                Arial, sans-serif;
+
+            font-size: 18px;
+        }
+
+
+        .canvas-container {
+            width: 100%;
+            padding: 12px;
+
+            background: #f7edf3;
+            border: 2px solid #d7b4ca;
+            border-radius: 20px;
+
+            box-shadow:
+                0 10px 25px rgba(70, 12, 56, 0.18);
+
+            overflow: hidden;
+        }
+
+        canvas {
+            display: block;
+            width: 100%;
+            height: auto;
+
+            background: #fceef5;
+            border-radius: 12px;
+        }
+
+
+        .back-button {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 13px 28px;
+
+            background: #a70d81;
+            color: white;
+
+            text-decoration: none;
+            border-radius: 30px;
+
+            font-size: 16px;
+            font-weight: bold;
+
+            transition:
+                background 0.3s ease,
+                transform 0.3s ease,
+                box-shadow 0.3s ease;
+        }
+
+        .back-button:hover {
+            background: #7d0961;
+            transform: translateY(-3px);
+
+            box-shadow:
+                0 8px 18px rgba(167, 13, 129, 0.30);
+        }
+
+
+        @media (max-width: 700px) {
+
+            body {
+                padding: 20px 12px;
+            }
+
+            .container {
+                padding: 25px 15px;
+                border-radius: 20px;
+            }
+
+            h1 {
+                font-size: 30px;
+            }
+
+            h2 {
+                font-size: 21px;
+            }
+
+            p {
+                font-size: 16px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+    <main class="container">
+
+        <h1>ANIMACIÓN DE ONDA SINOIDAL</h1>
+
+        <div class="linea"></div>
+
+        <h2>¡Bienvenido a mi página 8!</h2>
+
+        <p>
+            Este es una animación simple.
+        </p>
+
+
+        <div class="canvas-container">
+
+            <canvas
+                id="canvas"
+                width="1000"
+                height="700">
+            </canvas>
+
+        </div>
+
+
+        <p>
+            Imagen de fondo sacada de Pinterest.
+        </p>
+
+
+        <a
+            class="back-button"
+            href="../index.html">
+            ← Regresar al menú
+        </a>
+
+    </main>
+
+
+    <script>
+
+        window.onload = function () {
+
+            var canvas =
+                document.getElementById("canvas");
+
+            var context =
+                canvas.getContext("2d");
+
+            var personaje = new Image();
+            personaje.src = "star.png";
+            var fondo = new Image();
+            fondo.src = "fondo.jpg";
+
+            var tiempo = 0;
+            var ancho = 160;
+            var alto = 160;
+            var piso = canvas.height - 20;
+            var alturaSalto = 180;
+            var velocidad = 2.5;
+            var posicionX = 0;
+            var direccion = 1;
+
+            function drawFrame() {
+
+                window.requestAnimationFrame(drawFrame);
+
+                context.clearRect(
+                    0,
+                    0,
+                    canvas.width,
+                    canvas.height
+                );
+
+
+                if (
+                    fondo.complete &&
+                    fondo.naturalWidth > 0
+                ) {
+
+                    context.drawImage(
+                        fondo,
+                        0,
+                        0,
+                        canvas.width,
+                        canvas.height
+                    );
+
+                } else {
+
+
+                    context.fillStyle = "#fceef5";
+                    context.fillRect(
+                        0,
+                        0,
+                        canvas.width,
+                        canvas.height
+                    );
+
+                }
+
+                context.fillStyle = "#d7b4ca";
+
+                context.fillRect(
+                    0,
+                    piso,
+                    canvas.width,
+                    canvas.height - piso
+                );
+
+                posicionX += velocidad * direccion;
+
+                if (
+                    posicionX >= canvas.width - ancho
+                ) {
+
+                    posicionX = canvas.width - ancho;
+                    direccion = -1;
+
+                } else if (posicionX <= 0) {
+
+                    posicionX = 0;
+                    direccion = 1;
+
+                }
+
+                var salto =
+                    Math.abs(Math.sin(tiempo)) *
+                    alturaSalto;
+
+                var posicionY =
+                    piso - alto - salto;
+
+                if (
+                    personaje.complete &&
+                    personaje.naturalWidth > 0
+                ) {
+
+                    context.save();
+
+                    if (direccion === -1) {
+
+                        context.translate(
+                            posicionX + ancho,
+                            0
+                        );
+
+                        context.scale(-1, 1);
+
+                        context.drawImage(
+                            personaje,
+                            0,
+                            posicionY,
+                            ancho,
+                            alto
+                        );
+
+                    } else {
+
+                        context.drawImage(
+                            personaje,
+                            posicionX,
+                            posicionY,
+                            ancho,
+                            alto
+                        );
+
+                    }
+
+                    context.restore();
+
+                } else {
+                    context.fillStyle = "#a70d81";
+                    context.fillRect(
+                        posicionX,
+                        posicionY,
+                        ancho,
+                        alto
+                    );
+
+                }
+
+                tiempo += 0.04;
+
+            }
+
+            drawFrame();
+
+        };
+
+    </script>
+
+</body>
+
+</html>
