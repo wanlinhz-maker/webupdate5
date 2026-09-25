@@ -9,18 +9,15 @@
 
     <style>
 
-      
-
         * {
             box-sizing: border-box;
         }
 
+
         body {
             margin: 0;
             padding: 40px 20px;
-
             min-height: 100vh;
-
             background: linear-gradient(
                 135deg,
                 #ead5df,
@@ -29,25 +26,19 @@
             );
 
             font-family: 'Gill Sans', 'Gill Sans MT',
-                         Calibri, sans-serif;
+                 Calibri, sans-serif;
 
             color: #460c38;
         }
 
 
-
-
         .container {
             width: 100%;
             max-width: 850px;
-
             margin: 0 auto;
             padding: 45px;
-
             background-color: rgba(255, 255, 255, 0.90);
-
             border-radius: 30px;
-
             box-shadow:
                 0 15px 40px rgba(70, 12, 56, 0.20);
 
@@ -55,74 +46,50 @@
         }
 
 
-
-
         h1 {
             margin: 0;
-
             color: rgb(167, 13, 129);
-
             font-size: 42px;
-
             letter-spacing: 2px;
         }
-
-
         
 
         .linea {
             width: 70px;
             height: 5px;
-
             margin: 18px auto 25px;
-
             background-color: rgb(167, 13, 129);
-
             border-radius: 10px;
         }
 
 
-       
-
         h2 {
             margin: 0 0 10px;
-
             color: rgb(70, 12, 56);
-
             font-size: 27px;
         }
-
-
    
 
         p {
             margin-bottom: 25px;
-
             font-family:
                 'Franklin Gothic Medium',
                 'Arial Narrow',
                 Arial,
                 sans-serif;
-
             font-size: 17px;
 
             color: #5d4856;
         }
 
 
-
         img {
             display: block;
-
             width: 500px;
             max-width: 80%;
-
             height: auto;
-
             margin: 25px auto 35px;
-
             border-radius: 20px;
-
             box-shadow:
                 0 10px 25px rgba(70, 12, 56, 0.25);
 
@@ -134,7 +101,6 @@
 
         img:hover {
             transform: scale(1.03);
-
             box-shadow:
                 0 15px 30px rgba(70, 12, 56, 0.35);
         }
@@ -142,20 +108,15 @@
 
         ol {
             list-style: none;
-
             padding: 0;
-
             margin: 0 auto;
-
             max-width: 600px;
-
             counter-reset: menu;
         }
 
 
         li {
             counter-increment: menu;
-
             margin: 12px 0;
         }
 
@@ -163,27 +124,17 @@
 
         li a {
             display: block;
-
             position: relative;
-
             padding: 15px 20px;
             padding-left: 55px;
-
             background-color: #f7edf3;
-
             border: 2px solid #d7b4ca;
-
             border-radius: 15px;
-
             color: #460c38;
-
             text-decoration: none;
-
             font-size: 17px;
             font-weight: bold;
-
             text-align: left;
-
             transition:
                 background-color 0.3s ease,
                 color 0.3s ease,
@@ -191,61 +142,38 @@
                 box-shadow 0.3s ease;
         }
 
-
-
         li a::before {
             content: counter(menu);
-
             position: absolute;
-
             left: 15px;
             top: 50%;
-
             transform: translateY(-50%);
-
             width: 28px;
             height: 28px;
-
             display: flex;
-
             align-items: center;
             justify-content: center;
-
             border-radius: 50%;
-
             background-color: rgb(167, 13, 129);
-
             color: white;
-
             font-size: 14px;
         }
-
-
         
 
         li a::after {
             content: "→";
-
             position: absolute;
-
             right: 20px;
-
             opacity: 0;
-
             transition: 0.3s ease;
         }
 
 
-
         li a:hover {
             background-color: rgb(167, 13, 129);
-
             color: white;
-
             border-color: rgb(167, 13, 129);
-
             transform: translateX(6px);
-
             box-shadow:
                 0 8px 18px rgba(167, 13, 129, 0.25);
         }
@@ -253,17 +181,13 @@
 
         li a:hover::after {
             opacity: 1;
-
             right: 15px;
         }
 
-
-
+        
         .footer {
             margin-top: 35px;
-
             font-size: 13px;
-
             color: #806576;
         }
 
@@ -277,7 +201,6 @@
 
             .container {
                 padding: 30px 18px;
-
                 border-radius: 20px;
             }
 
@@ -309,23 +232,15 @@
 <body>
 
     <main class="container">
-
         <h1>MENÚ PRINCIPAL</h1>
-
         <div class="linea"></div>
-
         <h2>我是拉拉! </h2>
-
         <p>Ésta es una página simple</p>
-
-
-        <!-- IMAGEN PRINCIPAL -->
 
         <img
             src="Calajo.jpg"
             alt="Mi imagen"
         >
-
 
         <ol>
 
@@ -362,6 +277,12 @@
             <li>
                 <a href="pagina 6 - Parcial 2/Animacion rotacion al mouse.html">
                     Página Rotación al mouse
+                </a>
+            </li>
+
+             <li>
+                <a href="pagina 7 - Parcial 2/onda-senoidalocoseno.html">
+                    Página Animación con onda sinoidal/coseno
                 </a>
             </li>
 
