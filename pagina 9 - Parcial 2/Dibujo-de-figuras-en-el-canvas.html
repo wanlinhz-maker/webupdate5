@@ -1,0 +1,875 @@
+
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Figuras con Canvas API</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 40px 20px;
+            min-height: 100vh;
+
+            background: linear-gradient(
+                135deg,
+                #ead5df,
+                #d4bac6,
+                #c7a7bc
+            );
+
+            font-family: 'Gill Sans',
+                         'Gill Sans MT',
+                         Calibri, sans-serif;
+
+            color: #460c38;
+        }
+
+
+        .container {
+            width: 100%;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 40px;
+
+            background: rgba(255,255,255,0.90);
+            border-radius: 30px;
+
+            box-shadow:
+                0 15px 40px rgba(70,12,56,0.20);
+
+            text-align: center;
+        }
+
+
+        h1 {
+            margin: 0;
+            color: rgb(167, 13, 129);
+            font-size: 40px;
+            letter-spacing: 2px;
+        }
+
+
+        h2 {
+            color: #460c38;
+            font-size: 25px;
+        }
+
+
+        .linea {
+            width: 70px;
+            height: 5px;
+            margin: 18px auto 25px;
+            background: #a70d81;
+            border-radius: 10px;
+        }
+
+
+        p {
+            margin: 25px 0;
+            color: #a70d81;
+            font-family: 'Franklin Gothic Medium',
+                         'Arial Narrow',
+                         Arial, sans-serif;
+            font-size: 18px;
+        }
+
+
+        .figuras {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+
+        .figura {
+            width: 100%;
+            max-width: 650px;
+            padding: 25px;
+
+            background: #f7edf3;
+            border: 2px solid #d7b4ca;
+            border-radius: 20px;
+
+            box-shadow:
+                0 10px 25px rgba(70,12,56,0.12);
+        }
+
+
+        canvas {
+            display: block;
+            width: 100%;
+            height: auto;
+
+            background: white;
+            border-radius: 12px;
+        }
+
+
+        .back-button {
+            display: inline-block;
+            margin-top: 35px;
+            padding: 13px 28px;
+
+            background: #a70d81;
+            color: white;
+            text-decoration: none;
+
+            border-radius: 30px;
+            font-size: 16px;
+            font-weight: bold;
+
+            transition:
+                background 0.3s ease,
+                transform 0.3s ease,
+                box-shadow 0.3s ease;
+        }
+
+
+        .back-button:hover {
+            background: #7d0961;
+            transform: translateY(-3px);
+
+            box-shadow:
+                0 8px 18px rgba(167,13,129,0.30);
+        }
+
+
+          @media (max-width: 700px) {
+
+            body {
+                padding: 20px 12px;
+            }
+
+            .container {
+                padding: 25px 15px;
+                border-radius: 20px;
+            }
+
+            h1 {
+                font-size: 30px;
+            }
+
+            h2 {
+                font-size: 21px;
+            }
+
+            p {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+
+
+<body>
+    <main class="container">
+
+        <h1>DIBUJO DE FIGURAS EN EL CANVA</h1>
+
+        <div class="linea"></div>
+
+        <h2>¡Bienvenido a mi página 9!</h2>
+
+        <p>
+            Dibujos en el canva con métodos del API.
+        </p>
+
+        <div class="figuras">
+            <section class="figura">
+
+                <h2>1. Casita</h2>
+
+                <canvas
+                    id="canvasCasa"
+                    width="600"
+                    height="350">
+                </canvas>
+
+            </section>
+
+
+            <section class="figura">
+
+                <h2>2. Honguito</h2>
+
+                <canvas
+                    id="canvasHongo"
+                    width="600"
+                    height="350">
+                </canvas>
+
+            </section>
+
+
+            <section class="figura">
+
+                <h2>3. Estrella</h2>
+
+                <canvas
+                    id="canvasEstrella"
+                    width="600"
+                    height="350">
+                </canvas>
+
+            </section>
+
+
+            <section class="figura">
+
+                <h2>4. Luna</h2>
+
+                <canvas
+                    id="canvasLuna"
+                    width="600"
+                    height="350">
+                </canvas>
+
+            </section>
+
+
+            <section class="figura">
+
+                <h2>5. Libre - Gatito feliz</h2>
+
+                <canvas
+                    id="canvasGato"
+                    width="600"
+                    height="350">
+                </canvas>
+
+            </section>
+
+        </div>
+
+
+        <a class="back-button"
+           href="../index.html">
+            ← Regresar al menú
+        </a>
+
+    </main>
+
+
+    <script>
+
+    window.onload = function () {
+
+        var canvasCasa =
+            document.getElementById("canvasCasa");
+
+        var casa =
+            canvasCasa.getContext("2d");
+
+        casa.fillStyle = "#d5e8c5";
+        casa.fillRect(0, 285, 600, 65);
+
+        casa.fillStyle = "#a65c8e";
+        casa.fillRect(355, 75, 40, 85);
+
+        casa.strokeStyle = "#74395e";
+        casa.lineWidth = 4;
+        casa.strokeRect(355, 75, 40, 85);
+
+        casa.fillStyle = "#f4c8df";
+        casa.fillRect(170, 155, 260, 150);
+
+        casa.strokeRect(170, 155, 260, 150);
+
+        casa.beginPath();
+
+        casa.moveTo(140, 155);
+        casa.lineTo(300, 40);
+        casa.lineTo(460, 155);
+
+        casa.closePath();
+
+        casa.fillStyle = "#bd6198";
+        casa.fill();
+        casa.stroke();
+
+        casa.fillStyle = "#a70d81";
+        casa.fillRect(275, 225, 50, 80);
+
+        casa.strokeRect(275, 225, 50, 80);
+
+        casa.beginPath();
+        casa.arc(315, 265, 4, 0, Math.PI * 2);
+
+        casa.fillStyle = "#f5cb6b";
+        casa.fill();
+
+        casa.fillStyle = "#d5efff";
+
+        casa.fillRect(200, 185, 45, 45);
+        casa.fillRect(355, 185, 45, 45);
+
+        casa.strokeRect(200, 185, 45, 45);
+        casa.strokeRect(355, 185, 45, 45);
+
+        casa.beginPath();
+
+        casa.moveTo(222, 185);
+        casa.lineTo(222, 230);
+
+        casa.moveTo(200, 207);
+        casa.lineTo(245, 207);
+
+        casa.moveTo(377, 185);
+        casa.lineTo(377, 230);
+
+        casa.moveTo(355, 207);
+        casa.lineTo(400, 207);
+
+        casa.stroke();
+
+
+        var canvasHongo =
+            document.getElementById("canvasHongo");
+
+        var hongo =
+            canvasHongo.getContext("2d");
+
+        hongo.fillStyle = "#e5f1d9";
+        hongo.fillRect(0, 300, 600, 50);
+
+        hongo.beginPath();
+
+        hongo.moveTo(255, 175);
+        hongo.lineTo(255, 280);
+
+        hongo.quadraticCurveTo(
+            255, 310,
+            285, 310
+        );
+
+        hongo.lineTo(315, 310);
+
+        hongo.quadraticCurveTo(
+            345, 310,
+            345, 280
+        );
+
+        hongo.lineTo(345, 175);
+
+        hongo.closePath();
+
+        hongo.fillStyle = "#f2d7bf";
+        hongo.fill();
+
+        hongo.strokeStyle = "#466b4b";
+        hongo.lineWidth = 4;
+        hongo.stroke();
+
+        hongo.beginPath();
+
+        hongo.moveTo(170, 190);
+
+        hongo.bezierCurveTo(
+            180, 15,
+            420, 15,
+            430, 190
+        );
+
+        hongo.closePath();
+
+        hongo.fillStyle = "#74a67a";
+        hongo.fill();
+
+        hongo.stroke();
+
+        hongo.fillStyle = "#ffffff";
+
+        hongo.beginPath();
+        hongo.arc(245, 115, 20, 0, Math.PI * 2);
+        hongo.fill();
+
+        hongo.beginPath();
+        hongo.arc(330, 85, 27, 0, Math.PI * 2);
+        hongo.fill();
+
+        hongo.beginPath();
+        hongo.arc(380, 150, 15, 0, Math.PI * 2);
+        hongo.fill();
+
+        hongo.strokeStyle = "#6d9b70";
+        hongo.lineWidth = 4;
+
+        hongo.beginPath();
+
+        hongo.moveTo(210, 305);
+        hongo.lineTo(195, 285);
+
+        hongo.moveTo(210, 305);
+        hongo.lineTo(215, 275);
+
+        hongo.moveTo(210, 305);
+        hongo.lineTo(230, 290);
+
+        hongo.moveTo(390, 305);
+        hongo.lineTo(375, 285);
+
+        hongo.moveTo(390, 305);
+        hongo.lineTo(395, 275);
+
+        hongo.moveTo(390, 305);
+        hongo.lineTo(410, 290);
+
+        hongo.stroke();
+
+
+        var canvasEstrella =
+            document.getElementById("canvasEstrella");
+
+        var estrella =
+            canvasEstrella.getContext("2d");
+
+        var centroX = 300;
+        var centroY = 170;
+
+        var radioExterior = 135;
+        var radioInterior = 60;
+
+        var puntas = 5;
+
+        estrella.beginPath();
+
+        for (var i = 0; i < puntas * 2; i++) {
+            var radio =
+                i % 2 === 0
+                ? radioExterior
+                : radioInterior;
+
+            var angulo =
+                Math.PI * i / puntas
+                - Math.PI / 2;
+
+            var x =
+                centroX +
+                Math.cos(angulo) * radio;
+
+            var y =
+                centroY +
+                Math.sin(angulo) * radio;
+
+            if (i === 0) {
+                estrella.moveTo(x, y);
+            } else {
+                estrella.lineTo(x, y);
+            }
+        }
+
+        estrella.closePath();
+
+        estrella.fillStyle = "#ffcf70";
+        estrella.fill();
+
+        estrella.strokeStyle = "#74395e";
+        estrella.lineWidth = 5;
+        estrella.lineJoin = "round";
+        estrella.stroke();
+
+        estrella.beginPath();
+
+        estrella.arc(
+            275, 170,
+            12,
+            Math.PI,
+            0
+        );
+
+        estrella.strokeStyle = "#74395e";
+        estrella.lineWidth = 4;
+        estrella.stroke();
+
+        estrella.beginPath();
+
+        estrella.arc(
+            325, 170,
+            12,
+            Math.PI,
+            0
+        );
+
+        estrella.stroke();
+
+        estrella.beginPath();
+
+        estrella.arc(
+            300, 185,
+            18,
+            0,
+            Math.PI
+        );
+
+        estrella.stroke();
+
+        estrella.fillStyle = "#ff9fbd";
+
+        estrella.beginPath();
+        estrella.arc(255, 195, 12, 0, Math.PI * 2);
+        estrella.fill();
+
+        estrella.beginPath();
+        estrella.arc(345, 195, 12, 0, Math.PI * 2);
+        estrella.fill();
+
+
+        var canvasLuna =
+            document.getElementById("canvasLuna");
+
+        var luna =
+            canvasLuna.getContext("2d");
+
+        var cielo = luna.createLinearGradient(
+            0, 0, 600, 350
+        );
+
+        cielo.addColorStop(0, "#493b75");
+        cielo.addColorStop(1, "#8771b0");
+
+        luna.fillStyle = cielo;
+
+        luna.fillRect(0, 0, 600, 350);
+
+        luna.fillStyle = "#fff3c4";
+
+        var estrellas = [
+            [70, 45],
+            [150, 90],
+            [450, 55],
+            [530, 130],
+            [100, 230],
+            [490, 270],
+            [350, 35],
+            [390, 290],
+            [40, 160]
+        ];
+
+        for (var j = 0; j < estrellas.length; j++) {
+
+            luna.beginPath();
+
+            luna.arc(
+                estrellas[j][0],
+                estrellas[j][1],
+                3,
+                0,
+                Math.PI * 2
+            );
+
+            luna.fill();
+        }
+
+        luna.beginPath();
+
+        luna.arc(
+            300, 155,
+            95,
+            0,
+            Math.PI * 2
+        );
+
+        luna.fillStyle = "#ffe6a1";
+        luna.fill();
+
+        luna.save();
+
+        luna.beginPath();
+
+        luna.arc(
+            345, 115,
+            88,
+            0,
+            Math.PI * 2
+        );
+
+        luna.clip();
+
+        luna.fillStyle = "#6c5996";
+
+        luna.fillRect(
+            200, 0,
+            250, 260
+        );
+
+        luna.restore();
+
+        luna.fillStyle = "#e9d9f5";
+
+        luna.beginPath();
+
+        luna.arc(100, 265, 35, Math.PI, 0);
+        luna.arc(145, 250, 48, Math.PI, 0);
+        luna.arc(195, 270, 30, Math.PI, 0);
+
+        luna.lineTo(225, 290);
+        luna.lineTo(65, 290);
+
+        luna.closePath();
+        luna.fill();
+
+        luna.beginPath();
+
+        luna.arc(425, 275, 30, Math.PI, 0);
+        luna.arc(470, 260, 45, Math.PI, 0);
+        luna.arc(525, 275, 30, Math.PI, 0);
+
+        luna.lineTo(555, 300);
+        luna.lineTo(395, 300);
+
+        luna.closePath();
+        luna.fill();
+
+
+        var canvasGato =
+            document.getElementById("canvasGato");
+
+        var gato =
+            canvasGato.getContext("2d");
+
+
+        gato.strokeStyle = "#74395e";
+        gato.lineWidth = 4;
+        gato.lineCap = "round";
+        gato.lineJoin = "round";
+
+        gato.beginPath();
+
+        gato.moveTo(365, 265);
+
+        gato.bezierCurveTo(
+            460, 285,
+            465, 180,
+            420, 195
+        );
+
+        gato.bezierCurveTo(
+            395, 205,
+            425, 245,
+            365, 235
+        );
+
+        gato.fillStyle = "#d8c5d9";
+        gato.fill();
+        gato.stroke();
+
+        gato.beginPath();
+
+        gato.ellipse(
+            300, 255,
+            80, 70,
+            0,
+            0,
+            Math.PI * 2
+        );
+
+        gato.fillStyle = "#f8f1f5";
+        gato.fill();
+        gato.stroke();
+
+        gato.beginPath();
+
+        gato.moveTo(215, 145);
+        gato.lineTo(210, 45);
+        gato.lineTo(285, 105);
+
+        gato.closePath();
+
+        gato.fillStyle = "#f8f1f5";
+        gato.fill();
+        gato.stroke();
+
+        gato.beginPath();
+
+        gato.moveTo(315, 105);
+        gato.lineTo(390, 45);
+        gato.lineTo(385, 145);
+
+        gato.closePath();
+
+        gato.fill();
+        gato.stroke();
+
+        gato.fillStyle = "#f4b3d0";
+
+        gato.beginPath();
+
+        gato.moveTo(228, 120);
+        gato.lineTo(225, 72);
+        gato.lineTo(265, 110);
+
+        gato.closePath();
+        gato.fill();
+
+        gato.beginPath();
+
+        gato.moveTo(335, 110);
+        gato.lineTo(375, 72);
+        gato.lineTo(372, 120);
+
+        gato.closePath();
+        gato.fill();
+
+        gato.beginPath();
+
+        gato.ellipse(
+            300, 160,
+            95, 85,
+            0,
+            0,
+            Math.PI * 2
+        );
+
+        gato.fillStyle = "#f8f1f5";
+        gato.fill();
+        gato.stroke();
+
+        gato.strokeStyle = "#b99fba";
+        gato.lineWidth = 7;
+
+        gato.beginPath();
+
+        gato.moveTo(275, 85);
+        gato.lineTo(280, 110);
+
+        gato.moveTo(300, 80);
+        gato.lineTo(300, 108);
+
+        gato.moveTo(325, 85);
+        gato.lineTo(320, 110);
+
+        gato.stroke();
+
+        gato.strokeStyle = "#74395e";
+        gato.lineWidth = 4;
+
+        gato.beginPath();
+
+        gato.arc(
+            265, 160,
+            15,
+            Math.PI,
+            0
+        );
+
+        gato.stroke();
+
+        gato.beginPath();
+
+        gato.arc(
+            335, 160,
+            15,
+            Math.PI,
+            0
+        );
+
+        gato.stroke();
+
+        gato.fillStyle = "#ef91b9";
+
+        gato.beginPath();
+
+        gato.moveTo(292, 185);
+        gato.lineTo(308, 185);
+        gato.lineTo(300, 194);
+
+        gato.closePath();
+        gato.fill();
+
+        gato.strokeStyle = "#74395e";
+        gato.lineWidth = 3;
+
+        gato.beginPath();
+
+        gato.moveTo(300, 194);
+
+        gato.quadraticCurveTo(
+            285, 215,
+            275, 197
+        );
+
+        gato.moveTo(300, 194);
+
+        gato.quadraticCurveTo(
+            315, 215,
+            325, 197
+        );
+
+        gato.stroke();
+
+        gato.fillStyle = "#ffb4d1";
+
+        gato.beginPath();
+        gato.arc(240, 190, 13, 0, Math.PI * 2);
+        gato.fill();
+
+        gato.beginPath();
+        gato.arc(360, 190, 13, 0, Math.PI * 2);
+        gato.fill();
+
+        gato.strokeStyle = "#74395e";
+        gato.lineWidth = 2;
+
+        gato.beginPath();
+
+        gato.moveTo(220, 190);
+        gato.lineTo(175, 180);
+
+        gato.moveTo(220, 200);
+        gato.lineTo(175, 205);
+
+        gato.moveTo(380, 190);
+        gato.lineTo(425, 180);
+
+        gato.moveTo(380, 200);
+        gato.lineTo(425, 205);
+
+        gato.stroke();
+
+        gato.fillStyle = "#f8f1f5";
+        gato.strokeStyle = "#74395e";
+        gato.lineWidth = 3;
+
+        gato.beginPath();
+        gato.ellipse(270, 305, 25, 17, 0, 0, Math.PI * 2);
+        gato.fill();
+        gato.stroke();
+
+        gato.beginPath();
+        gato.ellipse(330, 305, 25, 17, 0, 0, Math.PI * 2);
+        gato.fill();
+        gato.stroke();
+
+        gato.beginPath();
+
+        gato.moveTo(440, 85);
+
+        gato.bezierCurveTo(
+            415, 60,
+            400, 95,
+            440, 120
+        );
+
+        gato.bezierCurveTo(
+            480, 95,
+            465, 60,
+            440, 85
+        );
+
+        gato.fillStyle = "#ef91b9";
+        gato.fill();
+
+    };
+    </script>
+</body>
+</html>
