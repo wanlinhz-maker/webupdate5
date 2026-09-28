@@ -8,9 +8,7 @@
           content="width=device-width, initial-scale=1.0">
 
     <title>Animación Senoidal</title>
-
     <style>
-
         * {
             box-sizing: border-box;
         }
@@ -33,6 +31,7 @@
 
             color: #460c38;
         }
+
 
         .container {
             width: 100%;
@@ -57,6 +56,11 @@
             letter-spacing: 2px;
         }
 
+        h2 {
+            color: #460c38;
+            font-size: 25px;
+        }
+
         .linea {
             width: 70px;
             height: 5px;
@@ -66,19 +70,12 @@
             border-radius: 10px;
         }
 
-        h2 {
-            color: #460c38;
-            font-size: 25px;
-        }
 
         p {
             color: #a70d81;
-
-            font-family:
-                'Franklin Gothic Medium',
-                'Arial Narrow',
-                Arial, sans-serif;
-
+            font-family: 'Franklin Gothic Medium',
+                         'Arial Narrow',
+                         Arial, sans-serif;
             font-size: 18px;
         }
 
@@ -97,12 +94,13 @@
             overflow: hidden;
         }
 
+
         canvas {
             display: block;
             width: 100%;
             height: auto;
 
-            background: #fceef5;
+            background: white;
             border-radius: 12px;
         }
 
@@ -127,6 +125,7 @@
                 box-shadow 0.3s ease;
         }
 
+
         .back-button:hover {
             background: #7d0961;
             transform: translateY(-3px);
@@ -135,7 +134,7 @@
                 0 8px 18px rgba(167, 13, 129, 0.30);
         }
 
-
+        
         @media (max-width: 700px) {
 
             body {
@@ -158,11 +157,9 @@
             p {
                 font-size: 16px;
             }
-
         }
 
     </style>
-
 </head>
 
 
@@ -358,7 +355,5 @@
         };
 
     </script>
-
 </body>
-
 </html>
