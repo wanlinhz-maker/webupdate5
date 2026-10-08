@@ -1,0 +1,522 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Mi Paint</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 40px 20px;
+            min-height: 100vh;
+            background: linear-gradient(
+                135deg,
+                #ead5df,
+                #d4bac6,
+                #c7a7bc
+            );
+
+            font-family: 'Gill Sans',
+                         'Gill Sans MT',
+                         Calibri, sans-serif;
+            color: #460c38;
+        }
+       
+        .container {
+            width: 100%;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.90);
+            border-radius: 30px;
+            box-shadow:
+                0 15px 40px rgba(70, 12, 56, 0.20);
+            text-align: center;
+        }
+   
+        h1 {
+            margin: 0;
+            color: #a70d81;
+            font-size: 40px;
+            letter-spacing: 2px;
+            text-align: center;
+        }
+
+        h2 {
+            color: #460c38;
+            font-size: 25px;
+            text-align: center;
+        }
+
+        .linea {
+            width: 70px;
+            height: 5px;
+            margin: 18px auto 25px;
+            background: #a70d81;
+            border-radius: 10px;
+        }
+
+        p {
+            color: #a70d81;
+            font-family: 'Franklin Gothic Medium',
+                         'Arial Narrow',
+                         Arial, sans-serif;
+            font-size: 18px;
+            text-align: center;
+        }
+      
+        .colores {
+            width: 100%;
+            min-height: 50px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .colores button {
+            width: 100px;
+            height: 40px;
+            margin-right: 5px;
+            margin-top: 5px;
+            border: 1px solid black;
+            cursor: pointer;
+        }
+
+        #black {
+            background: black;
+        }
+
+        #red {
+            background: red;
+        }
+
+        #blue {
+            background: blue;
+        }
+
+        #green {
+            background: green;
+        }
+
+        #yellow {
+            background: yellow;
+        }
+
+        .colores button:hover {
+            opacity: 0.5;
+        }
+      
+        .grosor {
+            width: 100%;
+            min-height: 60px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .grosor button {
+            display: inline-block;
+            position: relative;
+            width: 180px;
+            height: 50px;
+            margin-right: 10px;
+            margin-top: 5px;
+            padding: 15px 20px;
+            background-color: #f7edf3;
+            border: 2px solid #d7b4ca;
+            border-radius: 15px;
+            color: #460c38;
+            font-size: 17px;
+            font-weight: bold;
+            text-align: center;
+            cursor: pointer;
+            transition:
+                background-color 0.3s ease,
+                color 0.3s ease,
+                transform 0.3s ease,
+                box-shadow 0.3s ease;
+        }
+
+        .grosor button:hover {
+            background-color: #a70d81;
+            color: white;
+            border-color: #a70d81;
+            transform: translateX(6px);
+            box-shadow:
+                0 8px 18px rgba(167, 13, 129, 0.25);
+        }
+       
+        .canvas-container {
+            width: 100%;
+            padding: 12px;
+            margin: 25px auto 0;
+            background: #f7edf3;
+            border: 2px solid #d7b4ca;
+            border-radius: 20px;
+            box-shadow:
+                0 10px 25px rgba(70, 12, 56, 0.18);
+            overflow: hidden;
+        }
+
+        canvas {
+            display: block;
+            width: 100%;
+            height: auto;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            cursor: crosshair;
+        }
+      
+        #otros {
+            width: 100%;
+            min-height: 60px;
+            margin: 20px auto 0;
+            text-align: center;
+        }
+
+
+        #otros button {
+            display: inline-block;
+            position: relative;
+            width: 300px;
+            height: 50px;
+            margin-top: 5px;
+            padding: 15px 20px;
+            background-color: #f7edf3;
+            border: 2px solid #d7b4ca;
+            border-radius: 15px;
+            color: #460c38;
+            font-size: 17px;
+            font-weight: bold;
+            text-align: center;
+            cursor: pointer;
+            transition:
+                background-color 0.3s ease,
+                color 0.3s ease,
+                transform 0.3s ease,
+                box-shadow 0.3s ease;
+        }
+
+        #otros button:hover {
+            background-color: #a70d81;
+            color: white;
+            border-color: #a70d81;
+            transform: translateX(6px);
+            box-shadow:
+                0 8px 18px rgba(167, 13, 129, 0.25);
+        }
+     
+        aside {
+            margin-top: 15px;
+            color: #460c38;
+            font-family: 'Franklin Gothic Medium',
+                         'Arial Narrow',
+                         Arial, sans-serif;
+            font-size: 18px;
+            text-align: center;
+        }
+     
+        .back-button {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 13px 28px;
+            background: #a70d81;
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-size: 16px;
+            font-weight: bold;
+            transition:
+                background 0.3s ease,
+                transform 0.3s ease,
+                box-shadow 0.3s ease;
+        }
+
+        .back-button:hover {
+            background: #7d0961;
+            transform: translateY(-3px);
+            box-shadow:
+                0 8px 18px rgba(167, 13, 129, 0.30);
+        }
+      
+        @media (max-width: 700px) {
+            body {
+                padding: 20px 12px;
+            }
+
+            .container {
+                padding: 25px 15px;
+                border-radius: 20px;
+            }
+
+            h1 {
+                font-size: 30px;
+            }
+
+            h2 {
+                font-size: 21px;
+            }
+
+            p {
+                font-size: 16px;
+            }
+
+            .colores button {
+                width: 80px;
+            }
+
+            .grosor button {
+                width: 100%;
+                margin-right: 0;
+            }
+
+            #otros button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+
+<body>
+    <main class="container">
+        <h1>MI PROPIA APP TIPO PAINT</h1>
+        <div class="linea"></div>
+        <h2>¡Bienvenido a mi página 10!</h2>
+        <p>
+            Dibuja libremente utilizando diferentes colores y grosores de pluma.
+        </p>
+     
+        <h2>Colores</h2>
+        <div class="colores">
+            <button
+                id="black"
+                type="button"
+                value="#000000">
+            </button>
+
+            <button
+                id="red"
+                type="button"
+                value="#ff0000">
+            </button>
+
+            <button
+                id="blue"
+                type="button"
+                value="#0000ff">
+            </button>
+
+            <button
+                id="green"
+                type="button"
+                value="#008000">
+            </button>
+
+            <button
+                id="yellow"
+                type="button"
+                value="#ffff00">
+            </button>
+
+        </div>
+    
+        <h2>Grosor de la pluma</h2>
+        <div class="grosor">
+            <button
+                id="thin"
+                type="button"
+                value="3">
+                Delgado
+            </button>
+
+            <button
+                id="medium"
+                type="button"
+                value="10">
+                Mediano
+            </button>
+
+            <button
+                id="thick"
+                type="button"
+                value="20">
+                Grueso
+            </button>
+        </div>
+  
+        <div class="canvas-container">
+            <canvas
+                id="canvas"
+                width="1200"
+                height="700">
+            </canvas>
+        </div>
+       
+        <div id="otros">
+            <button
+                id="clearCanvas"
+                type="button">
+                Borrar todo
+            </button>
+        </div>
+     
+        <aside>
+            Haz clic y arrastra el mouse sobre el canvas para dibujar.
+        </aside>
+        <!-- REGRESAR -->
+        <a
+            class="back-button"
+            href="../index.html">
+            ← Regresar al menú
+        </a>
+    </main>
+
+    <script>
+    window.onload = function () {
+    
+        var canvas =
+            document.getElementById('canvas');
+        var context =
+            canvas.getContext('2d');
+        context.strokeStyle = '#000000';
+        context.lineWidth = 3;
+        context.lineCap = 'round';
+        context.lineJoin = 'round';
+        var drawing = false;
+   
+        function getMousePosition(event) {
+            var rect =
+                canvas.getBoundingClientRect();
+            var scaleX =
+                canvas.width / rect.width;
+            var scaleY =
+                canvas.height / rect.height;
+
+            return {
+                x:
+                    (event.clientX - rect.left)
+                    * scaleX,
+                y:
+                    (event.clientY - rect.top)
+                    * scaleY
+            };
+        }
+   
+        canvas.addEventListener(
+            'mousedown',
+            function(event) {
+                drawing = true;
+                var position =
+                    getMousePosition(event);
+
+                context.beginPath();
+                context.moveTo(
+                    position.x,
+                    position.y
+                );
+            }
+        );
+  
+        canvas.addEventListener(
+            'mousemove',
+            function(event) {
+                if (!drawing) {
+
+                    return;
+
+                }
+
+                var position =
+                    getMousePosition(event);
+
+                context.lineTo(
+                    position.x,
+                    position.y
+                );
+
+                context.stroke();
+            }
+        );
+  
+        canvas.addEventListener(
+            'mouseup',
+            function() {
+                drawing = false;
+                context.closePath();
+            }
+        );
+
+        canvas.addEventListener(
+            'mouseleave',
+            function() {
+                drawing = false;
+            }
+        );
+
+        var colores =
+            document.getElementsByClassName(
+                'colores'
+            )[0];
+
+        colores.addEventListener(
+            'click',
+            function(event) {
+                if (
+                    event.target.tagName
+                    === 'BUTTON'
+                ) {
+                    context.strokeStyle =
+                        event.target.value;
+                }
+            }
+        );
+
+        var grosor =
+            document.getElementsByClassName(
+                'grosor'
+            )[0];
+
+
+        grosor.addEventListener(
+            'click',
+            function(event) {
+
+                if (
+                    event.target.tagName
+                    === 'BUTTON'
+                ) {
+
+                    context.lineWidth =
+                        Number(event.target.value);
+
+                }
+
+            }
+        );
+
+        var clearButton =
+            document.getElementById(
+                'clearCanvas'
+            );
+
+
+        clearButton.addEventListener(
+            'click',
+            function() {
+                context.clearRect(
+                    0,
+                    0,
+                    canvas.width,
+                    canvas.height
+                );
+            }
+        );
+
+    };
+    </script>
+</body>
+</html>
