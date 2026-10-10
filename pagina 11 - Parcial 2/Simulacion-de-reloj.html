@@ -1,0 +1,329 @@
+
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+    <title>Simulación de Reloj</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 40px 20px;
+            min-height: 100vh;
+
+            background: linear-gradient(
+                135deg,
+                #ead5df,
+                #d4bac6,
+                #c7a7bc
+            );
+
+            font-family: 'Gill Sans',
+                         'Gill Sans MT',
+                         Calibri, sans-serif;
+
+            color: #460c38;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 40px;
+
+            background: rgba(255, 255, 255, 0.90);
+            border-radius: 30px;
+
+            box-shadow:
+                0 15px 40px rgba(70, 12, 56, 0.20);
+
+            text-align: center;
+        }
+
+        h1 {
+            margin: 0;
+            color: #a70d81;
+            font-size: 40px;
+            letter-spacing: 2px;
+        }
+
+        h2 {
+            color: #460c38;
+            font-size: 25px;
+        }
+
+        .linea {
+            width: 70px;
+            height: 5px;
+            margin: 18px auto 25px;
+
+            background: #a70d81;
+            border-radius: 10px;
+        }
+
+        p {
+            color: #a70d81;
+            font-family: 'Franklin Gothic Medium',
+                         'Arial Narrow',
+                         Arial, sans-serif;
+            font-size: 18px;
+        }
+
+        .canvas-container {
+            width: 100%;
+            padding: 12px;
+
+            background: #f7edf3;
+            border: 2px solid #d7b4ca;
+            border-radius: 20px;
+
+            box-shadow:
+                0 10px 25px rgba(70, 12, 56, 0.18);
+
+            overflow: hidden;
+        }
+
+        canvas {
+            display: block;
+            width: 100%;
+            height: auto;
+
+            background: white;
+            border-radius: 12px;
+        }
+
+        .back-button {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 13px 28px;
+
+            background: #a70d81;
+            color: white;
+
+            text-decoration: none;
+            border-radius: 30px;
+
+            font-size: 16px;
+            font-weight: bold;
+
+            transition:
+                background 0.3s ease,
+                transform 0.3s ease,
+                box-shadow 0.3s ease;
+        }
+
+        .back-button:hover {
+            background: #7d0961;
+            transform: translateY(-3px);
+
+            box-shadow:
+                0 8px 18px rgba(167, 13, 129, 0.30);
+        }
+
+        @media (max-width: 700px) {
+            body {
+                padding: 20px 12px;
+            }
+
+            .container {
+                padding: 25px 15px;
+                border-radius: 20px;
+            }
+
+            h1 {
+                font-size: 30px;
+            }
+
+            h2 {
+                font-size: 21px;
+            }
+
+            p {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <main class="container">
+        <h1>SIMULACIÓN DE RELOJ</h1>
+        <div class="linea"></div>
+        <h2>¡Bienvenido a mi página 11!</h2>
+        <p>
+            Simulación de reloj con tres manecillas.
+        </p>
+
+        <div class="canvas-container">
+            <canvas
+                id="canvas"
+                width="1000"
+                height="700">
+            </canvas>
+        </div>
+
+        <a class="back-button"
+           href="../index.html">
+            ← Regresar al menú
+        </a>
+
+    </main>
+
+    <script>
+        window.onload = function () {
+            var canvas = document.getElementById("canvas");
+            var context = canvas.getContext("2d");
+            var centroX = canvas.width / 2;
+            var centroY = canvas.height / 2;
+            var radio = 240;
+            var vr1 = 0.0005;
+            var vr2 = 0.006;
+            var vr3 = 0.03;
+            var anguloHoras = 0;
+            var anguloMinutos = 0;
+            var anguloSegundos = 0;
+            var tiempoAnterior = 0;
+            function dibujarReloj() {
+                context.clearRect(
+                    0, 0,
+                    canvas.width,
+                    canvas.height
+                );
+
+                context.beginPath();
+                context.arc(
+                    centroX,
+                    centroY,
+                    radio,
+                    0,
+                    Math.PI * 2
+                );
+
+                context.fillStyle = "#f7edf3";
+                context.fill();
+                context.lineWidth = 8;
+                context.strokeStyle = "#a70d81";
+                context.stroke();
+
+                for (var i = 0; i < 60; i++) {
+                    var angulo = i * Math.PI / 30;
+                    var longitud = (i % 5 === 0) ? 20 : 9;
+                    var x1 = centroX +
+                        Math.sin(angulo) * (radio - longitud);
+                    var y1 = centroY -
+                        Math.cos(angulo) * (radio - longitud);
+                    var x2 = centroX +
+                        Math.sin(angulo) * (radio - 4);
+                    var y2 = centroY -
+                        Math.cos(angulo) * (radio - 4);
+                    context.beginPath();
+                    context.moveTo(x1, y1);
+                    context.lineTo(x2, y2);
+                    context.strokeStyle =
+                        (i % 5 === 0) ? "#460c38" : "#c7a7bc";
+                    context.lineWidth =
+                        (i % 5 === 0) ? 5 : 2;
+                    context.stroke();
+                }
+
+                context.fillStyle = "#460c38";
+                context.font = "bold 28px Gill Sans";
+                context.textAlign = "center";
+                context.textBaseline = "middle";
+
+                for (var n = 1; n <= 12; n++) {
+                    var anguloNumero = n * Math.PI / 6;
+                    var numeroX = centroX +
+                        Math.sin(anguloNumero) * (radio - 45);
+                    var numeroY = centroY -
+                        Math.cos(anguloNumero) * (radio - 45);
+                    context.fillText(
+                        n,
+                        numeroX,
+                        numeroY
+                    );
+                }
+
+                dibujarManecilla(
+                    anguloHoras,
+                    radio * 0.48,
+                    10,
+                    "#460c38"
+                );
+
+                dibujarManecilla(
+                    anguloMinutos,
+                    radio * 0.70,
+                    7,
+                    "#a70d81"
+                );
+
+                dibujarManecilla(
+                    anguloSegundos,
+                    radio * 0.82,
+                    3,
+                    "#e53935"
+                );
+
+                context.beginPath();
+                context.arc(
+                    centroX,
+                    centroY,
+                    10,
+                    0,
+                    Math.PI * 2
+                );
+
+                context.fillStyle = "#a70d81";
+                context.fill();
+            }
+
+            function dibujarManecilla(
+                angulo,
+                longitud,
+                grosor,
+                color
+            ) {
+
+                var x = centroX +
+                    Math.sin(angulo) * longitud;
+                var y = centroY -
+                    Math.cos(angulo) * longitud;
+                context.beginPath();
+                context.moveTo(centroX, centroY);
+                context.lineTo(x, y);
+                context.strokeStyle = color;
+                context.lineWidth = grosor;
+                context.lineCap = "round";
+                context.stroke();
+            }
+
+            function animar(tiempoActual) {
+                if (tiempoAnterior === 0) {
+                    tiempoAnterior = tiempoActual;
+                }
+
+                var deltaTiempo =
+                    tiempoActual - tiempoAnterior;
+                tiempoAnterior = tiempoActual;
+                anguloHoras += vr1 * deltaTiempo;
+                anguloMinutos += vr2 * deltaTiempo;
+                anguloSegundos += vr3 * deltaTiempo;
+
+                dibujarReloj();
+
+                requestAnimationFrame(animar);
+            }
+            dibujarReloj();
+            requestAnimationFrame(animar);
+        };
+    </script>
+</body>
+</html>
