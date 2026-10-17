@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Nave personalizado</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 40px 20px;
+            min-height: 100vh;
+
+            background: linear-gradient(
+                135deg,
+                #ead5df,
+                #d4bac6,
+                #c7a7bc
+            );
+
+            font-family: 'Gill Sans',
+                         'Gill Sans MT',
+                         Calibri, sans-serif;
+
+            color: #460c38;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.90);
+            border-radius: 30px;
+            box-shadow:
+                0 15px 40px rgba(70, 12, 56, 0.20);
+
+            text-align: center;
+        }
+
+        h1 {
+            margin: 0;
+            color: #a70d81;
+            font-size: 40px;
+            letter-spacing: 2px;
+        }
+
+        h2 {
+            color: #460c38;
+            font-size: 25px;
+        }
+
+        .linea {
+            width: 70px;
+            height: 5px;
+            margin: 18px auto 25px;
+            background: #a70d81;
+            border-radius: 10px;
+        }
+
+        p {
+            color: #a70d81;
+            font-family: 'Franklin Gothic Medium',
+                         'Arial Narrow',
+                         Arial, sans-serif;
+            font-size: 18px;
+        }
+
+        .canvas-container {
+            width: 100%;
+            padding: 12px;
+            background: #f7edf3;
+            border: 2px solid #d7b4ca;
+            border-radius: 20px;
+            box-shadow:
+                0 10px 25px rgba(70, 12, 56, 0.18);
+
+            overflow: hidden;
+        }
+
+        canvas {
+            display: block;
+            width: 100%;
+            height: auto;
+            background: white;
+            border-radius: 12px;
+        }
+
+        .back-button {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 13px 28px;
+            background: #a70d81;
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-size: 16px;
+            font-weight: bold;
+            transition:
+                background 0.3s ease,
+                transform 0.3s ease,
+                box-shadow 0.3s ease;
+        }
+
+        .back-button:hover {
+            background: #7d0961;
+            transform: translateY(-3px);
+            box-shadow:
+                0 8px 18px rgba(167, 13, 129, 0.30);
+        }
+
+        @media (max-width: 700px) {
+            body {
+                padding: 20px 12px;
+            }
+
+            .container {
+                padding: 25px 15px;
+                border-radius: 20px;
+            }
+
+            h1 {
+                font-size: 30px;
+            }
+
+            h2 {
+                font-size: 21px;
+            }
+
+            p {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <main class="container">
+        <h1>NAVE PERSONALIZADO</h1>
+        <div class="linea"></div>
+        <h2>¡Bienvenido a mi página 12!</h2>
+        <p>Nave personalizado con límites y fricción.</p>
+
+        <div class="canvas-container">
+            <canvas
+                id="canvas"
+                width="1000"
+                height="700">
+            </canvas>
+        </div>
+
+        <p>Mueve tu nave con los controles "a, w, s, d" del teclado.</p>
+
+        <a class="back-button"
+           href="../index.html">
+            ← Regresar al menú
+        </a>
+    </main>
+
+    <script>
+        const canvas = document.getElementById("canvas");
+        const ctx = canvas.getContext("2d");
+        const anchoCanvas = canvas.width;
+        const altoCanvas = canvas.height;
+        const imagenFondo = new Image();
+        const rutaFondo = "espacio.jpg";
+        let fondoCargado = false;
+
+        if (rutaFondo !== "") {
+            imagenFondo.onload = function () {
+                fondoCargado = true;
+            };
+
+            imagenFondo.src = rutaFondo;
+        }
+
+        const imagenNave = new Image();
+        const rutaNave = "nave.png";
+        let naveCargada = false;
+
+        if (rutaNave !== "") {
+            imagenNave.onload = function () {
+                naveCargada = true;
+            };
+
+            imagenNave.src = rutaNave;
+        }
+
+        const nave = {
+            x: anchoCanvas / 2,
+            y: altoCanvas / 2,
+            ancho: 80,
+            alto: 80,
+            velocidadX: 0,
+            velocidadY: 0,
+            aceleracion: 0.2,
+            friccion: 0.98,
+            velocidadMaxima: 6,
+            angulo: 0,
+            velocidadGiro: 0.12
+        };
+
+        const teclas = {};
+
+        document.addEventListener("keydown", function (evento) {
+            const teclasMovimiento = [
+                "ArrowUp",
+                "ArrowDown",
+                "ArrowLeft",
+                "ArrowRight",
+                "w", "a", "s", "d",
+                "W", "A", "S", "D"
+            ];
+
+            if (teclasMovimiento.includes(evento.key)) {
+                evento.preventDefault();
+            }
+
+            teclas[evento.key] = true;
+        });
+
+        document.addEventListener("keyup", function (evento) {
+            teclas[evento.key] = false;
+        });
+
+        window.addEventListener("blur", function () {
+            for (const tecla in teclas) {
+                teclas[tecla] = false;
+            }
+        });
+
+        function dibujarFondo() {
+            if (fondoCargado) {
+                ctx.drawImage(
+                    imagenFondo,
+                    0,
+                    0,
+                    anchoCanvas,
+                    altoCanvas
+                );
+            } else {
+                const degradado = ctx.createLinearGradient(
+                    0, 0, anchoCanvas, altoCanvas
+                );
+
+                degradado.addColorStop(0, "#090d2b");
+                degradado.addColorStop(0.5, "#211044");
+                degradado.addColorStop(1, "#080b20");
+                ctx.fillStyle = degradado;
+                ctx.fillRect(
+                    0,
+                    0,
+                    anchoCanvas,
+                    altoCanvas
+                );
+            }
+        }
+
+        function dibujarNave() {
+            ctx.save();
+            ctx.translate(nave.x, nave.y);
+            ctx.rotate(nave.angulo);
+
+            if (naveCargada) {
+                ctx.drawImage(
+                    imagenNave,
+                    -nave.ancho / 2,
+                    -nave.alto / 2,
+                    nave.ancho,
+                    nave.alto
+                );
+            } 
+            ctx.restore();
+        }
+
+        function actualizarNave() {
+            if (
+                teclas["ArrowUp"] ||
+                teclas["w"] ||
+                teclas["W"]
+            ) {
+                nave.velocidadY -= nave.aceleracion;
+            }
+
+            if (
+                teclas["ArrowDown"] ||
+                teclas["s"] ||
+                teclas["S"]
+            ) {
+                nave.velocidadY += nave.aceleracion;
+            }
+
+            if (
+                teclas["ArrowLeft"] ||
+                teclas["a"] ||
+                teclas["A"]
+            ) {
+                nave.velocidadX -= nave.aceleracion;
+            }
+
+            if (
+                teclas["ArrowRight"] ||
+                teclas["d"] ||
+                teclas["D"]
+            ) {
+                nave.velocidadX += nave.aceleracion;
+            }
+
+            nave.velocidadX = Math.max(
+                -nave.velocidadMaxima,
+                Math.min(
+                    nave.velocidadMaxima,
+                    nave.velocidadX
+                )
+            );
+
+            nave.velocidadY = Math.max(
+                -nave.velocidadMaxima,
+                Math.min(
+                    nave.velocidadMaxima,
+                    nave.velocidadY
+                )
+            );
+
+            nave.velocidadX *= nave.friccion;
+            nave.velocidadY *= nave.friccion;
+
+            if (
+                Math.abs(nave.velocidadX) > 0.15 ||
+                Math.abs(nave.velocidadY) > 0.15
+            ) {
+                const anguloObjetivo =
+                    Math.atan2(
+                        nave.velocidadY,
+                        nave.velocidadX
+                    ) + Math.PI / 2;
+
+                let diferencia =
+                    anguloObjetivo - nave.angulo;
+
+                diferencia = Math.atan2(
+                    Math.sin(diferencia),
+                    Math.cos(diferencia)
+                );
+
+                nave.angulo +=
+                    diferencia * nave.velocidadGiro;
+            }
+
+            nave.x += nave.velocidadX;
+            nave.y += nave.velocidadY;
+            const mitadAncho = nave.ancho / 2;
+            const mitadAlto = nave.alto / 2;
+
+            if (nave.x - mitadAncho < 0) {
+                nave.x = mitadAncho;
+                nave.velocidadX = 0;
+            }
+
+            if (nave.x + mitadAncho > anchoCanvas) {
+                nave.x = anchoCanvas - mitadAncho;
+                nave.velocidadX = 0;
+            }
+
+            if (nave.y - mitadAlto < 0) {
+                nave.y = mitadAlto;
+                nave.velocidadY = 0;
+            }
+
+            if (nave.y + mitadAlto > altoCanvas) {
+                nave.y = altoCanvas - mitadAlto;
+                nave.velocidadY = 0;
+            }
+        }
+
+        function animar() {
+            dibujarFondo();
+            actualizarNave();
+            dibujarNave();
+            requestAnimationFrame(animar);
+        }
+
+        animar();
+
+    </script>
+</body>
+</html>
